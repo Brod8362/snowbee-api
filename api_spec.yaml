@@ -23,7 +23,7 @@ components:
             id:
                 description: Vendor ID
                 type: string
-            display_name:
+            name:
                 description: Vendor name
                 type: string
             url:
@@ -38,15 +38,19 @@ components:
         type: object
         description: Filter description
         properties:
-            name: 
+            id:
                 description: Name of filter
                 type: string
-            display_name: 
+            name:
                 description: Display name of the feilter (how it should be displayed to the user)
                 type: string
-            filter_type:  
+            type:
                 description: Type of the filter (e.g number, string)
                 type: string
+                oneOf:
+                    - "str"
+                    - "num"
+                    - "range"
     # Represents a specific product returned by the API.
     Product:
         type: object

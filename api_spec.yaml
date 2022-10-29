@@ -20,8 +20,11 @@ components:
     Vendor:
         type: object
         properties:
-            name:
-                description: Vendor Name
+            id:
+                description: Vendor ID
+                type: string
+            display_name:
+                description: Vendor name
                 type: string
             url:
                 description: Main site url
@@ -93,9 +96,10 @@ components:
             commit:
                 description: Commit the server is running on
                 type: string
+
 paths:
     /search:
-        get:
+        post:
             description: Search for products
             requestBody:
                 content:

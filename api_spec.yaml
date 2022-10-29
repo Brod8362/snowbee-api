@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+    title: "snowbee search"
+    version: "1.0"
+    description: "FOSS ecommerce search aggregator"
+    contact:
+        name: "Brod8362"
+        url: "https://github.com/brod8362"
+
+servers:
+    - url: https://api.snowbee.byakuren.pw/v1
+      description: "Primary server"
+    - url: http://localhost:5000/v1
+      description: "Local development server"
+
+components:
+  schemas:
+    # Schema representing a specific vendor.
+    # Will be returned by the API, represents which vendors are available to search
+    Vendor:
+        type: object
+        properties:
+            name:
+                description: Vendor Name
+                type: string
+            url:
+                description: Main site url
+                type: string
+            favicon:
+                description: URL to site's favicon
+                type: string
+    # Schema representing an available filter.
+    # Will be returned by the API, represents which filters are available to use
+    Filter:
+        type: object
+        description: Filter description
+        properties:
+            name: 
+                description: Name of filter
+                type: string
+            display_name: 
+                description: Display name of the feilter (how it should be displayed to the user)
+                type: string
+            filter_type:  
+                description: Type of the filter (e.g number, string)
+                type: string
+    # Represents a specific product returned by the API.
+    Product:
+        type: object
+        description: Product schema
+        properties:
+            vendor_name:
+                description: Name of the vendor
+                type: string
+            product_name:
+                description: The name of the product
+                type: string
+            price:
+                description: Price of the product
+                type: number
+            product_page_url:
+                description: URL of the product page
+                type: string
+            properties:
+                description: Array of properties
+                type: object
+    SearchQuery:
+        type: object
+        description: Schema for API input format
+        properties:
+            query:
+                description: Search string
+                type: string
+            filters:
+                description: List of filters
+                type: array
+    SearchResponse:
+        type: object
+        description: Schema for API response
+        properties:
+            products:
+                description: List of products
+                type: array
+                items:
+                    $ref: "#/components/schemas/Product"
+    InfoResponse:
+        type: object
+        description: Response with information about the server and it's API version
+        properties:
+            version: 
+                description: Version of the API
+                type: string
+            commit:
+                description: Commit the server is running on
+                type: string
+paths:
+    /search:
+        get:
+            description: Search for products
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/SearchQuery"
+            responses:
+                200:
+                    description: Search successful
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/SearchResponse"
+                404:
+                    description: No results found
+
+
+    /filters:
+        get:

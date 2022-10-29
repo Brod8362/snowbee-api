@@ -3,6 +3,7 @@ package pw.byakuren.snowbee.api
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
+import pw.byakuren.snowbee.api.filters.Filter
 import pw.byakuren.snowbee.api.vendors.{AmazonV, IVendor}
 
 class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
@@ -21,7 +22,9 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
   }
 
   post("/search") {
-    views.html.hello()
+    val query = ""
+    val limit = 10
+    availableVendors.map(_.search(query, limit))
   }
 
   get("/info") {
@@ -38,8 +41,8 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
     }
   }
 
-  get("filters") {
-
+  get("/filters") {
+    Filter.all
   }
 
 }

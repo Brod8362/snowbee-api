@@ -7,6 +7,6 @@ abstract class IVendor(id :String, name: String, url: String, favicon: String) {
 
   implicit val formats: DefaultFormats.type = org.json4s.DefaultFormats
 
-  def search(query: String, limit: Int): Seq[Product] = ???
+  def search(query: String, limit: Int = 10): Seq[Product]
   final def repr: VendorRepr = VendorRepr(this.id, this.name, this.url, this.favicon)
 }

@@ -10,11 +10,11 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
   protected implicit lazy val jsonFormats: Formats = DefaultFormats
 
   private val apiInfo: Map[String, String] = Map(
-    "version" -> "0.1",
+    "version" -> "placeholder",
     "commit" -> "unknown"
   )
 
-  private val availableVendors: List[IVendor] = List(AmazonV)
+  private val availableVendors: Seq[IVendor] = Seq(AmazonV)
 
   before() {
     contentType = formats("json")
@@ -33,7 +33,7 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
       NotFound()
     } else {
       Map(
-        "vendors" -> availableVendors
+        "vendors" -> availableVendors.map(_.repr)
       )
     }
   }

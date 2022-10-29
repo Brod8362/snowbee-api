@@ -112,6 +112,32 @@ paths:
                 404:
                     description: No results found
 
-
     /filters:
         get:
+            description: Get the list of available filters
+            responses:
+                200:
+                    description: Filters in response body
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    filters:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/Filter"
+
+    /vendors:
+        get:
+            description: Get the list of available vendors
+            responses:
+                200:
+                    description: Vendors in response body
+                    content:
+                        application/json:
+                            schema:
+                                properties:
+                                    vendors:
+                                        type: array
+                                        items:
+                                            $ref: "#/components/schemas/Vendor"

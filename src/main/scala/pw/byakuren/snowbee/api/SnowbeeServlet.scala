@@ -42,11 +42,18 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
 
   get("/vendors") {
     if (availableVendors.isEmpty) {
-      NotFound()
+      NotFound("no_vendors_selected")
     } else {
-      Map(
-        "vendors" -> availableVendors.map(_.repr)
-      )
+      val results = availableVendors.map(_.repr)
+      if (results.isEmpty) {
+        NotFound("no_results")
+      } else {
+        Ok(
+          Map(
+            "vendors" -> results
+          )
+        )
+      }
     }
   }
 

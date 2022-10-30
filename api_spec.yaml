@@ -71,6 +71,9 @@ components:
             properties:
                 description: Array of properties
                 type: object
+            preview:url:
+                description: Image preview
+                type: string
     SearchQuery:
         type: object
         description: Schema for API input format

@@ -1,5 +1,8 @@
 package pw.byakuren.snowbee.api.products
 
-import pw.byakuren.snowbee.api.vendors.IVendor
-
-case class Product(name: String, vendor: IVendor, price: Float, product_page: String, properties: Map[String, String]) {}
+case class Product(name: String,
+                   vendor: String,
+                   price: Float,
+                   product_page: String,
+                   properties: Map[String, String],
+                   preview_url: String)

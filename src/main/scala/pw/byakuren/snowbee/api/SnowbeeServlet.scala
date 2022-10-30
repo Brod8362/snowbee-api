@@ -4,7 +4,7 @@ import org.json4s.{DefaultFormats, Formats, JNothing, JString}
 import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
 import pw.byakuren.snowbee.api.filters.Filter
-import pw.byakuren.snowbee.api.vendors.{AmazonV, IVendor}
+import pw.byakuren.snowbee.api.vendors.{AmazonV, EbayV, IVendor, WalmartV}
 
 class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
 
@@ -15,7 +15,7 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
     "commit" -> "unknown"
   )
 
-  private val availableVendors: Seq[IVendor] = Seq(AmazonV)
+  private val availableVendors: Seq[IVendor] = Seq(AmazonV, EbayV, WalmartV)
 
   before() {
     contentType = formats("json")
@@ -51,7 +51,9 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
   }
 
   get("/filters") {
-    Filter.all
+    Map(
+      "filters" -> Filter.all
+    )
   }
 
 }

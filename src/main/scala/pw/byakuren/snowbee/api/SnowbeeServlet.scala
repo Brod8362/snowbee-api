@@ -36,6 +36,10 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
     }
   }
 
+  options("/search") {
+    Ok()
+  }
+
   get("/info") {
     apiInfo
   }

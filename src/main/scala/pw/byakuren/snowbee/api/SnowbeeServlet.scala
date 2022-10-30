@@ -1,6 +1,6 @@
 package pw.byakuren.snowbee.api
 
-import org.json4s.{DefaultFormats, Formats}
+import org.json4s.{DefaultFormats, Formats, JNothing, JString}
 import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
 import pw.byakuren.snowbee.api.filters.Filter
@@ -22,9 +22,18 @@ class SnowbeeServlet extends ScalatraServlet with JacksonJsonSupport {
   }
 
   post("/search") {
-    val query = ""
-    val limit = 10
-    availableVendors.map(_.search(query, limit))
+    val json = parsedBody
+    val queryJ = json \\ "query"
+    if (queryJ == JNothing) {
+      BadRequest("missing_query_parameter")
+    } else if (!queryJ.isInstanceOf[JString]) {
+      BadRequest("query_is_not_string")
+    } else {
+      val limit = 10
+      Map(
+        "products" -> availableVendors.flatMap(_.search(queryJ.asInstanceOf[JString].s, limit))
+      )
+    }
   }
 
   get("/info") {

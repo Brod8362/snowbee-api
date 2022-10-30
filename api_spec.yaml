@@ -149,3 +149,14 @@ paths:
                                         type: array
                                         items:
                                             $ref: "#/components/schemas/Vendor"
+    /info:
+        get:
+            description: Get info about the running API server
+            responses:
+                200:
+                    description: Info in response body
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/InfoResponse"
+

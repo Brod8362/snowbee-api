@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-    title: "snowbee search"
+    title: "snowbee search API"
     version: "1.0"
     description: "FOSS ecommerce search aggregator"
     contact:
@@ -56,16 +56,16 @@ components:
         type: object
         description: Product schema
         properties:
-            vendor_name:
+            vendor:
                 description: Name of the vendor
                 type: string
-            product_name:
+            name:
                 description: The name of the product
                 type: string
             price:
                 description: Price of the product
                 type: number
-            product_page_url:
+            product_page:
                 description: URL of the product page
                 type: string
             properties:
